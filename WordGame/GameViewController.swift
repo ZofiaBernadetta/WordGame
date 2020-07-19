@@ -27,8 +27,7 @@ class GameViewController:  UIViewController {
     var collision: UICollisionBehavior!
     var buttonBehavior: UIDynamicItemBehavior!
     
-    var cancellable: AnyCancellable!
-    var cancellableForFalling: AnyCancellable!
+    var cancellables = [AnyCancellable]()
 
 
     override func viewDidLoad() {
@@ -63,13 +62,22 @@ class GameViewController:  UIViewController {
         collision.translatesReferenceBoundsIntoBoundary = true
         collision.collisionDelegate = self
         
-        cancellable = viewModel.$game
-            .sink { game in self.updateView(game) }
+        cancellables.append(viewModel.$game.sink {
+            game in self.updateView(game)
+        })
         
-        cancellableForFalling = viewModel.$currentFallingText
-            .sink(receiveValue: { text in
-                self.createNewFallingButton(with: text)
-            })
+        cancellables.append(viewModel.$currentFallingText.sink { text in
+            self.createNewFallingButton(with: text)
+        })
+        
+        cancellables.append(viewModel.$topBarText.assign(to: \.topBarTextLabel.text, on: self))
+        cancellables.append(viewModel.$counterText.assign(to: \.topBarCounterLabel.text, on: self))
+        
+        cancellables.append(viewModel.$heartColors.sink { colors in
+            for index in 0...2 {
+                self.hearts[index].tintColor = colors[index]
+            }
+        })
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -84,22 +92,15 @@ class GameViewController:  UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        cancellable.cancel()
-        cancellableForFalling.cancel()
+        cancellables.forEach { $0.cancel() }
     }
     
     
     func updateView(_ game: Game) {
-        
-        self.topBarTextLabel.text = self.viewModel.topBarText
-        
-        self.topBarCounterLabel.text = self.viewModel.counterText
-        
-        let colors = self.viewModel.heartColors
-        for index in 0...2 {
-            self.hearts[index].tintColor = colors[index]
-        }
-    
+//        self.topBarTextLabel.text = self.viewModel.topBarText
+//
+//        self.topBarCounterLabel.text = self.viewModel.counterText
+            
         if game.isGameOver {
             for button in self.fallingButtons {
                 button.isHidden = true

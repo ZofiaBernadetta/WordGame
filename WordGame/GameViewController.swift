@@ -7,64 +7,145 @@
 //
 
 import UIKit
+import Combine
 
 class GameViewController:  UIViewController {
-    let button = UIButton()
+    
+    var viewModel: GameViewModel!
+    
     let topBarColor = #colorLiteral(red: 0.01176470588, green: 0.2, blue: 0.09803921569, alpha: 1)
-    let heartImageView1 = UIImageView()
-    let heartImageView2 = UIImageView()
-    let heartImageView3 = UIImageView()
+    let hearts = [UIImageView(), UIImageView(), UIImageView()]
     let topBarTextLabel = UILabel()
     let topBarCounterLabel = UILabel()
     
     let barrier = UIView()
     
     var animator: UIDynamicAnimator!
-    var gravity: UIGravityBehavior!
+    var pushBehaviour: UIPushBehavior!
+    var gravityBehaviour: UIGravityBehavior!
     var collision: UICollisionBehavior!
+    var buttonBehavior: UIDynamicItemBehavior!
+    
+    var cancellable: AnyCancellable!
+    var cancellableForFalling: AnyCancellable!
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel = GameViewModel()
+        
+        for heart in hearts {
+            heart.image = UIImage(named: "heart")
+        }
+        
+    
         setUpTopBar()
-        button.frame = CGRect(x: 10, y: 141, width: 200, height: 44)
-        button.setTitle("pomodoro", for: .normal)
-        view.addSubview(button)
-        button.setTitleColor(topBarColor, for: .normal)
-        
-        topBarTextLabel.text = "tomato"
-        heartImageView1.image = UIImage(named: "heart")
-        heartImageView2.image = UIImage(named: "heart")
-        heartImageView3.image = UIImage(named: "heart")
-        
-        topBarCounterLabel.text = "10"
+                
         topBarCounterLabel.textColor = .white
-        
-        let xPosition = (view.bounds.size.width - button.bounds.width) / 2
-        button.frame.origin = CGPoint(x: xPosition, y: 141)
         
         view.addSubview(barrier)
         barrier.frame = CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: 20)
-        print(barrier)
-        animator = UIDynamicAnimator(referenceView: view)
-        gravity = UIGravityBehavior(items: [button])
-        gravity.magnitude = 0.5
         
-        collision = UICollisionBehavior(items: [button, barrier])
+        buttonBehavior = UIDynamicItemBehavior()
+        buttonBehavior.resistance = 3
+        buttonBehavior.friction = 2
+        buttonBehavior.allowsRotation = false
+        
+        animator = UIDynamicAnimator(referenceView: view)
+        gravityBehaviour = UIGravityBehavior()
+        gravityBehaviour.magnitude = 0.03
+        
+        pushBehaviour = UIPushBehavior(items: [], mode: .continuous)
+        pushBehaviour.pushDirection = .init(dx: 0, dy: 5)
+        
+        collision = UICollisionBehavior(items: [barrier])
         collision.translatesReferenceBoundsIntoBoundary = true
         collision.collisionDelegate = self
+        
+        cancellable = viewModel.$game
+            .sink { _ in self.updateView() }
+        
+        cancellableForFalling = viewModel.$currentFallingText
+            .sink(receiveValue: { text in
+                self.createNewFallingButton(with: text)
+            })
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        animator.addBehavior(gravity)
+        viewModel.viewDidAppear()
+        
         animator.addBehavior(collision)
+        animator.addBehavior(buttonBehavior)
+        animator.addBehavior(pushBehaviour)
+        pushBehaviour.active = true
     }
     
-    override func viewDidLayoutSubviews() {
-        let xPosition = (view.bounds.size.width - button.bounds.width) / 2
-        button.frame.origin = CGPoint(x: xPosition, y: 141)
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        cancellable.cancel()
+    }
+    
+    
+    func updateView() {
         
-        barrier.frame = CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: 20)
+        self.topBarTextLabel.text = self.viewModel.topBarText
+        
+        self.topBarCounterLabel.text = self.viewModel.counterText
+        
+        let colors = self.viewModel.heartColors
+        for index in 0...2 {
+            self.hearts[index].tintColor = colors[index]
+        }
+    }
+    
+    
+    func createNewFallingButton(with text: String) {
+        
+        let newButton = UIButton()
+        newButton.frame = CGRect(x: 0, y: 141, width: view.bounds.size.width, height: 44)
+        newButton.setTitle(text, for: .normal)
+        newButton.setTitleColor(self.topBarColor, for: .normal)
+        newButton.addTarget(self, action: #selector(didTapButton(_:)), for: .touchUpInside)
+        
+        self.view.addSubview(newButton)
+        
+        self.buttonBehavior.addItem(newButton)
+        self.collision.addItem(newButton)
+        self.pushBehaviour.addItem(newButton)
+    }
+    
+    @objc func didTapButton(_ button: UIButton) {
+        guard let word = button.titleLabel?.text else { return }
+        let text = viewModel.selectedWord(word)
+        if text != "" {
+            displayChangeOfResult(text: text)
+        }
+    }
+    
+    func displayChangeOfResult(text: String) {
+        
+        let myString = text
+        var myAttribute = [NSAttributedString.Key : UIColor]()
+            if text == "+1" {
+                myAttribute = [ NSAttributedString.Key.foregroundColor: .blue ]
+            } else if text == "-1" {
+                myAttribute = [ NSAttributedString.Key.foregroundColor: .red ]
+            } else if text  == "game over" {
+                myAttribute = [ NSAttributedString.Key.foregroundColor: .red ]
+            }
+        let myAttrString = NSAttributedString(string: myString, attributes: myAttribute)
+        
+        let label = UILabel(frame: CGRect(x: 0, y: 60, width: view.bounds.width, height: 20))
+        label.attributedText = myAttrString
+        view.addSubview(label)
+        
+        UIView.animate(withDuration: 1.5, animations: {
+            label.alpha = 0
+        }, completion: { finished in
+            label.removeFromSuperview()
+        })
+
     }
     
     private func setUpTopBar() {
@@ -95,11 +176,7 @@ class GameViewController:  UIViewController {
         
         
         let stackView = UIStackView(
-            arrangedSubviews: [
-                heartImageView1,
-                heartImageView2,
-                heartImageView3,
-            ])
+            arrangedSubviews: hearts)
         topBar.addSubview(stackView)
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -121,14 +198,23 @@ class GameViewController:  UIViewController {
         
     }
     
-
-
 }
 
 extension GameViewController: UICollisionBehaviorDelegate {
-    func collisionBehavior(_ behavior: UICollisionBehavior, beganContactFor item1: UIDynamicItem, with item2: UIDynamicItem, at p: CGPoint) {
-        print("bum")
-        print(item2)
-        print(item1)
+    func collisionBehavior(
+        _ behavior: UICollisionBehavior,
+        beganContactFor item1: UIDynamicItem,
+        with item2: UIDynamicItem,
+        at p: CGPoint
+    ) {
+        guard let button = item2 as? UIButton, let word = button.currentTitle else { return }
+        let text = viewModel.reachedBottom(for: word)
+        if text != "" {
+            displayChangeOfResult(text: text)
+        }
+        
+        gravityBehaviour.removeItem(item2)
+        collision.removeItem(item2)
+        (item2 as? UIButton)?.removeFromSuperview()
     }
 }

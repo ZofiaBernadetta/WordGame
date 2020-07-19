@@ -15,6 +15,9 @@
 		239CE0DC24C43C9C00B0DB02 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 239CE0DA24C43C9C00B0DB02 /* LaunchScreen.storyboard */; };
 		239CE0E424C43E4E00B0DB02 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239CE0E324C43E4E00B0DB02 /* Game.swift */; };
 		239CE0E624C43E5C00B0DB02 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239CE0E524C43E5C00B0DB02 /* GameViewModel.swift */; };
+		239CE0E824C478B700B0DB02 /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239CE0E724C478B700B0DB02 /* Word.swift */; };
+		239CE0EA24C4791F00B0DB02 /* words.json in Resources */ = {isa = PBXBuildFile; fileRef = 239CE0E924C4791F00B0DB02 /* words.json */; };
+		239CE0EC24C483C600B0DB02 /* Bundle+decode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239CE0EB24C483C600B0DB02 /* Bundle+decode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +31,9 @@
 		239CE0DD24C43C9C00B0DB02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		239CE0E324C43E4E00B0DB02 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		239CE0E524C43E5C00B0DB02 /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
+		239CE0E724C478B700B0DB02 /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
+		239CE0E924C4791F00B0DB02 /* words.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = words.json; sourceTree = "<group>"; };
+		239CE0EB24C483C600B0DB02 /* Bundle+decode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+decode.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,13 +68,16 @@
 			children = (
 				239CE0CF24C43C9400B0DB02 /* AppDelegate.swift */,
 				239CE0D124C43C9400B0DB02 /* SceneDelegate.swift */,
+				239CE0E724C478B700B0DB02 /* Word.swift */,
 				239CE0E324C43E4E00B0DB02 /* Game.swift */,
 				239CE0E524C43E5C00B0DB02 /* GameViewModel.swift */,
 				239CE0D324C43C9400B0DB02 /* GameViewController.swift */,
+				239CE0EB24C483C600B0DB02 /* Bundle+decode.swift */,
 				239CE0D524C43C9400B0DB02 /* Main.storyboard */,
 				239CE0D824C43C9C00B0DB02 /* Assets.xcassets */,
 				239CE0DA24C43C9C00B0DB02 /* LaunchScreen.storyboard */,
 				239CE0DD24C43C9C00B0DB02 /* Info.plist */,
+				239CE0E924C4791F00B0DB02 /* words.json */,
 			);
 			path = WordGame;
 			sourceTree = "<group>";
@@ -132,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				239CE0DC24C43C9C00B0DB02 /* LaunchScreen.storyboard in Resources */,
+				239CE0EA24C4791F00B0DB02 /* words.json in Resources */,
 				239CE0D924C43C9C00B0DB02 /* Assets.xcassets in Resources */,
 				239CE0D724C43C9400B0DB02 /* Main.storyboard in Resources */,
 			);
@@ -146,9 +156,11 @@
 			files = (
 				239CE0D424C43C9400B0DB02 /* GameViewController.swift in Sources */,
 				239CE0D024C43C9400B0DB02 /* AppDelegate.swift in Sources */,
+				239CE0EC24C483C600B0DB02 /* Bundle+decode.swift in Sources */,
 				239CE0D224C43C9400B0DB02 /* SceneDelegate.swift in Sources */,
 				239CE0E624C43E5C00B0DB02 /* GameViewModel.swift in Sources */,
 				239CE0E424C43E4E00B0DB02 /* Game.swift in Sources */,
+				239CE0E824C478B700B0DB02 /* Word.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

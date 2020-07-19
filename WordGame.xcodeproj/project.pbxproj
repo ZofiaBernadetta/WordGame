@@ -18,7 +18,18 @@
 		239CE0E824C478B700B0DB02 /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239CE0E724C478B700B0DB02 /* Word.swift */; };
 		239CE0EA24C4791F00B0DB02 /* words.json in Resources */ = {isa = PBXBuildFile; fileRef = 239CE0E924C4791F00B0DB02 /* words.json */; };
 		239CE0EC24C483C600B0DB02 /* Bundle+decode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239CE0EB24C483C600B0DB02 /* Bundle+decode.swift */; };
+		239CE0F824C4F90B00B0DB02 /* GameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239CE0F724C4F90B00B0DB02 /* GameTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		239CE0FA24C4F90B00B0DB02 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 239CE0C424C43C9400B0DB02 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 239CE0CB24C43C9400B0DB02;
+			remoteInfo = WordGame;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		239CE0CC24C43C9400B0DB02 /* WordGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -34,10 +45,20 @@
 		239CE0E724C478B700B0DB02 /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
 		239CE0E924C4791F00B0DB02 /* words.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = words.json; sourceTree = "<group>"; };
 		239CE0EB24C483C600B0DB02 /* Bundle+decode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+decode.swift"; sourceTree = "<group>"; };
+		239CE0F524C4F90B00B0DB02 /* WordGameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WordGameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		239CE0F724C4F90B00B0DB02 /* GameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTests.swift; sourceTree = "<group>"; };
+		239CE0F924C4F90B00B0DB02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		239CE0C924C43C9400B0DB02 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		239CE0F224C4F90B00B0DB02 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -51,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				239CE0CE24C43C9400B0DB02 /* WordGame */,
+				239CE0F624C4F90B00B0DB02 /* WordGameTests */,
 				239CE0CD24C43C9400B0DB02 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -59,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				239CE0CC24C43C9400B0DB02 /* WordGame.app */,
+				239CE0F524C4F90B00B0DB02 /* WordGameTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -82,6 +105,15 @@
 			path = WordGame;
 			sourceTree = "<group>";
 		};
+		239CE0F624C4F90B00B0DB02 /* WordGameTests */ = {
+			isa = PBXGroup;
+			children = (
+				239CE0F724C4F90B00B0DB02 /* GameTests.swift */,
+				239CE0F924C4F90B00B0DB02 /* Info.plist */,
+			);
+			path = WordGameTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -102,6 +134,24 @@
 			productReference = 239CE0CC24C43C9400B0DB02 /* WordGame.app */;
 			productType = "com.apple.product-type.application";
 		};
+		239CE0F424C4F90B00B0DB02 /* WordGameTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 239CE0FC24C4F90B00B0DB02 /* Build configuration list for PBXNativeTarget "WordGameTests" */;
+			buildPhases = (
+				239CE0F124C4F90B00B0DB02 /* Sources */,
+				239CE0F224C4F90B00B0DB02 /* Frameworks */,
+				239CE0F324C4F90B00B0DB02 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				239CE0FB24C4F90B00B0DB02 /* PBXTargetDependency */,
+			);
+			name = WordGameTests;
+			productName = WordGameTests;
+			productReference = 239CE0F524C4F90B00B0DB02 /* WordGameTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -114,6 +164,10 @@
 				TargetAttributes = {
 					239CE0CB24C43C9400B0DB02 = {
 						CreatedOnToolsVersion = 11.5;
+					};
+					239CE0F424C4F90B00B0DB02 = {
+						CreatedOnToolsVersion = 11.5;
+						TestTargetID = 239CE0CB24C43C9400B0DB02;
 					};
 				};
 			};
@@ -131,6 +185,7 @@
 			projectRoot = "";
 			targets = (
 				239CE0CB24C43C9400B0DB02 /* WordGame */,
+				239CE0F424C4F90B00B0DB02 /* WordGameTests */,
 			);
 		};
 /* End PBXProject section */
@@ -144,6 +199,13 @@
 				239CE0EA24C4791F00B0DB02 /* words.json in Resources */,
 				239CE0D924C43C9C00B0DB02 /* Assets.xcassets in Resources */,
 				239CE0D724C43C9400B0DB02 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		239CE0F324C4F90B00B0DB02 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,7 +226,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		239CE0F124C4F90B00B0DB02 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				239CE0F824C4F90B00B0DB02 /* GameTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		239CE0FB24C4F90B00B0DB02 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 239CE0CB24C43C9400B0DB02 /* WordGame */;
+			targetProxy = 239CE0FA24C4F90B00B0DB02 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		239CE0D524C43C9400B0DB02 /* Main.storyboard */ = {
@@ -336,6 +414,46 @@
 			};
 			name = Release;
 		};
+		239CE0FD24C4F90B00B0DB02 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9VSYQ6QW3Z;
+				INFOPLIST_FILE = WordGameTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.zofiadrabek.WordGameTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WordGame.app/WordGame";
+			};
+			name = Debug;
+		};
+		239CE0FE24C4F90B00B0DB02 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9VSYQ6QW3Z;
+				INFOPLIST_FILE = WordGameTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.zofiadrabek.WordGameTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WordGame.app/WordGame";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -353,6 +471,15 @@
 			buildConfigurations = (
 				239CE0E124C43C9C00B0DB02 /* Debug */,
 				239CE0E224C43C9C00B0DB02 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		239CE0FC24C4F90B00B0DB02 /* Build configuration list for PBXNativeTarget "WordGameTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				239CE0FD24C4F90B00B0DB02 /* Debug */,
+				239CE0FE24C4F90B00B0DB02 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

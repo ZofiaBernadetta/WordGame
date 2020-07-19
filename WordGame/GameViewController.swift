@@ -17,6 +17,7 @@ class GameViewController:  UIViewController {
     let hearts = [UIImageView(), UIImageView(), UIImageView()]
     let topBarTextLabel = UILabel()
     let topBarCounterLabel = UILabel()
+    var fallingButtons = [UIButton]()
     
     let barrier = UIView()
     
@@ -63,14 +64,14 @@ class GameViewController:  UIViewController {
         collision.collisionDelegate = self
         
         cancellable = viewModel.$game
-            .sink { _ in self.updateView() }
+            .sink { game in self.updateView(game) }
         
         cancellableForFalling = viewModel.$currentFallingText
             .sink(receiveValue: { text in
                 self.createNewFallingButton(with: text)
             })
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.viewDidAppear()
@@ -84,10 +85,11 @@ class GameViewController:  UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         cancellable.cancel()
+        cancellableForFalling.cancel()
     }
     
     
-    func updateView() {
+    func updateView(_ game: Game) {
         
         self.topBarTextLabel.text = self.viewModel.topBarText
         
@@ -96,6 +98,16 @@ class GameViewController:  UIViewController {
         let colors = self.viewModel.heartColors
         for index in 0...2 {
             self.hearts[index].tintColor = colors[index]
+        }
+    
+        if game.isGameOver {
+            for button in self.fallingButtons {
+                button.isHidden = true
+                button.removeFromSuperview()
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                self.presentingViewController?.dismiss(animated: true, completion: nil)
+            }
         }
     }
     
@@ -107,6 +119,7 @@ class GameViewController:  UIViewController {
         newButton.setTitle(text, for: .normal)
         newButton.setTitleColor(self.topBarColor, for: .normal)
         newButton.addTarget(self, action: #selector(didTapButton(_:)), for: .touchUpInside)
+        fallingButtons.append(newButton)
         
         self.view.addSubview(newButton)
         
@@ -126,6 +139,7 @@ class GameViewController:  UIViewController {
     func displayChangeOfResult(text: String) {
         
         let myString = text
+        var duration = 1.5
         var myAttribute = [NSAttributedString.Key : UIColor]()
             if text == "+1" {
                 myAttribute = [ NSAttributedString.Key.foregroundColor: .blue ]
@@ -133,14 +147,20 @@ class GameViewController:  UIViewController {
                 myAttribute = [ NSAttributedString.Key.foregroundColor: .red ]
             } else if text  == "game over" {
                 myAttribute = [ NSAttributedString.Key.foregroundColor: .red ]
+                duration = 4
             }
         let myAttrString = NSAttributedString(string: myString, attributes: myAttribute)
         
-        let label = UILabel(frame: CGRect(x: 0, y: 60, width: view.bounds.width, height: 20))
-        label.attributedText = myAttrString
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(label)
+        NSLayoutConstraint.activate([
+            label.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+        label.attributedText = myAttrString
         
-        UIView.animate(withDuration: 1.5, animations: {
+        UIView.animate(withDuration: duration, animations: {
             label.alpha = 0
         }, completion: { finished in
             label.removeFromSuperview()

@@ -19,6 +19,8 @@ struct Game {
     var currentWord = Word(eng: "", spa: "")
     var currentWords = [Word]()
     var currentIndex = 0
+    
+    var isGameOver = false
         
     init() {
         beginRound()
@@ -33,7 +35,7 @@ struct Game {
         } while previousWord == newWord
         
         var newWords = [Word]()
-        for _ in 0...7 {
+        for _ in 0...5 {
             var newWord: Word
             repeat {
                 newWord = allWords.randomElement()!
@@ -72,6 +74,7 @@ struct Game {
         numberOfLives -= 1
         
         if numberOfLives < 1 {
+            isGameOver = true
             return "game over"
         } else {
             return "-1"

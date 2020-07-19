@@ -51,12 +51,15 @@ class GameViewModel: ObservableObject {
     @Published var currentFallingText = ""
     
     private func fireTimer(_ timer: Timer) {
-        guard game.currentWords.map(\.spa).count > game.currentIndex else {
-            self.timer = nil
+        guard !game.isGameOver,
+            game.currentWords.map(\.spa).count > game.currentIndex else {
+                self.timer?.invalidate()
+                self.timer = nil
             return
         }
         currentFallingText = game.currentWords.map(\.spa)[game.currentIndex]
         game.currentIndex += 1
+        
     }
-    
+        
 }

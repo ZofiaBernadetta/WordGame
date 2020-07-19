@@ -25,11 +25,21 @@
                                     <segue destination="BYZ-38-t0r" kind="presentation" modalPresentationStyle="fullScreen" id="ztw-mN-uuc"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap on the correct translation of the word on top to collect points!   Remember to be quick, the words pass by fast!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qe4-Bl-ld9">
+                                <rect key="frame" x="20" y="305.5" width="374" height="81.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.011764705882352941" green="0.20000000000000001" blue="0.098039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="qBq-3Z-JgQ" firstAttribute="centerX" secondItem="bBE-Te-AhQ" secondAttribute="centerX" id="Bfu-5e-nxx"/>
                             <constraint firstItem="qBq-3Z-JgQ" firstAttribute="centerY" secondItem="bBE-Te-AhQ" secondAttribute="centerY" id="Eht-OT-USi"/>
+                            <constraint firstItem="qe4-Bl-ld9" firstAttribute="centerX" secondItem="bBE-Te-AhQ" secondAttribute="centerX" id="FWx-h3-UyT"/>
+                            <constraint firstItem="qe4-Bl-ld9" firstAttribute="leading" secondItem="bBE-Te-AhQ" secondAttribute="leadingMargin" id="hXg-Kx-P3R"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="qe4-Bl-ld9" secondAttribute="trailing" id="ny7-sW-gjQ"/>
+                            <constraint firstItem="qBq-3Z-JgQ" firstAttribute="top" secondItem="qe4-Bl-ld9" secondAttribute="bottom" constant="32" id="qzR-4b-p0w"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GOf-pb-P6M"/>
                     </view>

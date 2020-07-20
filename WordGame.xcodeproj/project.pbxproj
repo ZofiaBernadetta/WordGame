@@ -48,6 +48,7 @@
 		239CE0F524C4F90B00B0DB02 /* WordGameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WordGameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		239CE0F724C4F90B00B0DB02 /* GameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTests.swift; sourceTree = "<group>"; };
 		239CE0F924C4F90B00B0DB02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		239CE0FF24C56C7700B0DB02 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +72,7 @@
 		239CE0C324C43C9400B0DB02 = {
 			isa = PBXGroup;
 			children = (
+				239CE0FF24C56C7700B0DB02 /* README.md */,
 				239CE0CE24C43C9400B0DB02 /* WordGame */,
 				239CE0F624C4F90B00B0DB02 /* WordGameTests */,
 				239CE0CD24C43C9400B0DB02 /* Products */,

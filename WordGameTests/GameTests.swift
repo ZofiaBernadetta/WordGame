@@ -51,9 +51,12 @@ class GameTests: XCTestCase {
         XCTAssertEqual(currentResult1, game.currentResult)
         
         let newWord1 = game.currentWord.spa
-        let newText1 = game.didntChooseWord(word: newWord1)
+        _ = game.didntChooseWord(word: newWord1)
+        let newWord2 = game.currentWord.spa
+        let newText2 = game.didntChooseWord(word: newWord2)
+        print(game.numberOfLives)
         
-        XCTAssertEqual(newText1, "game over")
+        XCTAssertEqual(newText2, "game over")
     }
     
     func testSelectedWord() {
@@ -78,7 +81,7 @@ class GameTests: XCTestCase {
         
         let lives1 = game.numberOfLives
         let currentResult1 = game.currentResult
-        let newText = game.didntChooseWord(word: differentWord)
+        let newText = game.selectedWord(differentWord)
         
         XCTAssertEqual(newText, "-1")
         XCTAssertEqual(lives1 - 1, game.numberOfLives)
